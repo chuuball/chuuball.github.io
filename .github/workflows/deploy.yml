@@ -23,11 +23,27 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
-      - run: npm ci
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        id: cache-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
-      - run: npm run build
+      - name: Install dependencies
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Cache Astro build
+        uses: actions/cache@v4
+        with:
+          path: .astro
+          key: ${{ runner.os }}-astro-${{ hashFiles('src/**', 'public/**', 'astro.config.mjs') }}
+          restore-keys: ${{ runner.os }}-astro-
+
+      - name: Build
+        run: npm run build
         env:
           TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
           TINA_TOKEN: ${{ secrets.TINA_TOKEN }}

@@ -46,9 +46,20 @@ Before the `/admin` editor works in production:
 4. Add both as GitHub Actions secrets in the repo settings
 5. Copy `.env.example` → `.env` and fill in values for local Tina Cloud auth
 
+**Dependency note:** `tinacms` (v2+) has no `bin` entry — it's the React UI only. The CLI binary (`tinacms dev`, `tinacms build`) lives in `@tinacms/cli`. Both are required.
+
+**Tina free tier behavior:** Tina Cloud's free tier creates a PR for every edit rather than committing directly to `main`. The `.github/workflows/automerge.yml` workflow auto-merges these PRs. Condition: `github.actor == 'tinabot' || startsWith(github.head_ref, 'tina/')` — verify this matches the actual PR actor/branch when a real Tina edit is made.
+
+## Docker Dev Environment
+
+Key non-obvious details:
+
+- **Node modules at `/deps`:** `npm ci` installs to `/deps` (not `/app`) so the bind-mounted source tree never shadows `node_modules` with an empty directory from the host.
+- **socat port bridge:** Tina's dev server binds port 4001 to `::1` (IPv6 loopback only). Docker's port mapping can't reach that, so the dev script runs `socat TCP4-LISTEN:4001,fork,reuseaddr TCP6:[::1]:4001` to bridge IPv4 all-interfaces → IPv6 loopback. `socat` is installed in the Dockerfile via `apk add --no-cache socat`.
+
 ## Deployment
 
-Pushing to `main` triggers `.github/workflows/deploy.yml`, which runs `npm run build` and deploys `dist/` to GitHub Pages. The repo default branch needs to be `main` (rename from `master` if not done yet).
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which runs `npm run build` and deploys `dist/` to GitHub Pages. Two caches speed up the workflow: `node_modules` keyed by `package-lock.json` hash (skips `npm ci` entirely on cache hit), and `.astro/` keyed by source file hashes.
 
 ## Styling
 
