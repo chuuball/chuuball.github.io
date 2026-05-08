@@ -1,0 +1,40 @@
+---
+interface Props {
+  phrases: string[];
+}
+const { phrases } = Astro.props;
+const repeated = [...phrases, ...phrases];
+---
+
+<div class="scroller">
+  <div class="marquee">
+    {repeated.map(p => <span>{p}</span>)}
+  </div>
+</div>
+
+<style>
+  .scroller {
+    overflow: hidden;
+    width: 540px;
+    height: 20px;
+    border: 0.5px solid #000;
+    margin-top: 8px;
+  }
+
+  .marquee {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scroll-left 8s linear infinite;
+  }
+
+  .marquee span {
+    display: inline-block;
+    line-height: 20px;
+    padding: 0 1rem;
+  }
+
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+</style>

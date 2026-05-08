@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const date = post.data.date.toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+
+<Layout>
+  <h1>{post.data.header}</h1>
+  <p class="meta">{date} — {post.data.tagline}</p>
+  {post.data.image && <img src={post.data.image} alt="" />}
+  <h2>{post.data.subtitle}</h2>
+  <Content />
+  <ul>
+    {post.data.affirmations.map(a => <li>{a}</li>)}
+    {post.data.song && <li>song of the day: {post.data.song}</li>}
+  </ul>
+</Layout>
+
+<style>
+  .meta {
+    font-style: italic;
+    margin: 6px 0;
+  }
+</style>

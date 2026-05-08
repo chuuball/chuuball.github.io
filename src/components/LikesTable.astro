@@ -1,0 +1,40 @@
+---
+interface Props {
+  likes: { label: string; value: string }[];
+}
+const { likes } = Astro.props;
+---
+
+<div class="likes">
+  <table border="2" cellspacing="0" cellpadding="6">
+    <tbody>
+      {likes.map(({ label, value }) => (
+        <tr>
+          <th>{label}</th>
+          <td>{value}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .likes {
+    border: 1px solid #000;
+    width: 170px;
+    min-height: 170px;
+    margin-top: 12px;
+    background-image: url('/5.png');
+  }
+
+  .likes table {
+    background: #fff;
+    margin: auto;
+    margin-top: 22px;
+  }
+
+  .likes th {
+    background: #000;
+    color: #fff;
+  }
+</style>

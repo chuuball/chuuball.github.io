@@ -1,0 +1,16 @@
+{
+  "name": "chuuball-github-io",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sh -c 'socat TCP4-LISTEN:4001,fork,reuseaddr TCP6:[::1]:4001 & tinacms dev -c \"astro dev --host\"'",
+    "build": "tinacms build && astro build",
+    "preview": "astro preview --host"
+  },
+  "dependencies": {
+    "astro": "^4.16.0",
+    "tinacms": "^2.0.0",
+    "@tinacms/cli": "^1.6.0"
+  }
+}

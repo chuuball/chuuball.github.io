@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+
+:root {
+  --color-bg: #fff;
+  --color-border: #000;
+  --color-invert-bg: #000;
+  --color-invert-text: #fff;
+  --font-body: Verdana, sans-serif;
+  --font-title: 'Gloria Hallelujah', sans-serif;
+  --font-size-base: 12px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  margin: 0;
+  padding: 6px;
+  cursor: url('/cat.gif'), auto;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1 {
+  background: var(--color-invert-bg);
+  color: var(--color-invert-text);
+  margin: 0;
+  font-size: 13px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  margin-top: -6px;
+}
+
+h2 {
+  font-size: 12px;
+  font-weight: 500;
+  border-top: 1px dashed var(--color-border);
+  border-bottom: 1px dashed var(--color-border);
+  letter-spacing: 2px;
+  padding: 3px;
+  margin: 1em 0 0.5em;
+}
+
+blockquote {
+  border-left: 3px solid var(--color-border);
+  margin: 1em 0;
+  padding: 0.25em 1em;
+  font-style: italic;
+}

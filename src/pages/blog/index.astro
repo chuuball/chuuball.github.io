@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+const posts = await getCollection('posts');
+const sorted = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout>
+  <h1>blog</h1>
+  <div class="list">
+    {sorted.map(post => <BlogCard post={post} />)}
+  </div>
+</Layout>
+
+<style>
+  .list {
+    padding: 6px 0;
+  }
+</style>

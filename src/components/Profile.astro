@@ -1,0 +1,49 @@
+---
+import LikesTable from './LikesTable.astro';
+
+interface Props {
+  avatar?: string;
+  bio: string[];
+  likes: { label: string; value: string }[];
+}
+const { avatar, bio, likes } = Astro.props;
+---
+
+<div class="right">
+  <div class="profile">
+    <div
+      class="avatar"
+      style={avatar ? `background-image: url('${avatar}')` : ''}
+    ></div>
+    {bio.map(line => <p>{line}</p>)}
+  </div>
+  <LikesTable likes={likes} />
+</div>
+
+<style>
+  .right {
+    width: 186px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .profile {
+    border: 1px solid #000;
+    width: 186px;
+    background: #fff;
+    padding: 6px;
+  }
+
+  .profile p {
+    margin: 0 0 4px;
+  }
+
+  .avatar {
+    border: 1px solid #000;
+    width: 170px;
+    height: 170px;
+    margin-bottom: 12px;
+    background-size: cover;
+    background-position: center;
+  }
+</style>

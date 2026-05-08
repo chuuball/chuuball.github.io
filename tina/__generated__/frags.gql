@@ -1,0 +1,41 @@
+fragment PostParts on Post {
+  __typename
+  header
+  date
+  tagline
+  subtitle
+  image
+  song
+  affirmations
+  body
+}
+
+fragment PageParts on Page {
+  __typename
+  heading
+  body
+}
+
+fragment SiteParts on Site {
+  __typename
+  title
+  subtitle
+  banner
+  marquee
+  socialLinks {
+    __typename
+    label
+    url
+  }
+}
+
+fragment SidebarParts on Sidebar {
+  __typename
+  avatar
+  bio
+  likes {
+    __typename
+    label
+    value
+  }
+}

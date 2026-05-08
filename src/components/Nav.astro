@@ -1,0 +1,54 @@
+---
+const links = [
+  { href: '/',      label: 'home' },
+  { href: '/blog',  label: 'blog' },
+  { href: '/about', label: 'about' },
+  { href: '/bs',    label: 'random bs' },
+];
+const current = Astro.url.pathname;
+---
+
+<nav class="menu">
+  {links.map(({ href, label }) => (
+    <a href={href} class={current === href ? 'active' : ''}>{label}</a>
+  ))}
+</nav>
+
+<style>
+  .menu {
+    border: 1px solid #000;
+    display: block;
+    padding: 24px;
+    background-image: url('/4.png');
+  }
+
+  .menu a {
+    border: 1px solid #fff;
+    height: 32px;
+    line-height: 30px;
+    width: 100%;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    background: #fff;
+    text-align: center;
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  .menu a::before {
+    content: " ";
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    background: #000;
+    border: 2px solid #fff;
+    position: absolute;
+    left: -1px;
+    top: -1px;
+  }
+
+  .menu a:last-child {
+    margin-bottom: 0;
+  }
+</style>

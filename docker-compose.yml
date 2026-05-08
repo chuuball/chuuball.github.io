@@ -1,0 +1,11 @@
+services:
+  dev:
+    build: .
+    ports:
+      - "4321:4321"
+      - "4001:4001"
+    volumes:
+      - .:/app
+    env_file:
+      - path: .env
+        required: false
