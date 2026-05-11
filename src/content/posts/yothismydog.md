@@ -10,6 +10,6 @@ affirmations:
   - ok waiittttt
 ---
 
-May 10th, 2026 — here my dog:
+here my dog:
 
 ![](/uploads/dog.jpg)
